@@ -56,3 +56,9 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+
+# Outputs — generated files, not source code
+outputs/
+
+# Checkpoints — too large for GitHub
+checkpoints/
