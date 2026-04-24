@@ -231,6 +231,8 @@ if __name__ == "__main__":
     print(f"Loaded checkpoint — Val AUC: {checkpoint['val_auc']:.4f}")
 
     # Test on one PNEUMONIA image
+    # test_image = Path("data/raw/chest_xray/test/PNEUMONIA/person1660_virus_2869.jpeg")
+    # test_image = Path("data/raw/chest_xray/test/NORMAL/IM-0023-0001.jpeg")
     test_image = next(Path("data/raw/chest_xray/test/PNEUMONIA").glob("*.jpeg"))
     print(f"Testing on: {test_image}")
 
