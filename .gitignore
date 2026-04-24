@@ -1,0 +1,58 @@
+ 
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Data — never push datasets to GitHub
+data/raw/
+data/processed/
+data/splits/
+
+# Model weights — too large for GitHub
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.pkl
+
+# Kaggle credentials — NEVER push this
+kaggle.json
+.kaggle/
+
+# Environment variables — NEVER push this
+.env
+*.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Logs
+logs/
+*.log
+
+# AWS credentials — NEVER push this
+.aws/
+credentials
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
