@@ -62,3 +62,10 @@ outputs/
 
 # Checkpoints — too large for GitHub
 checkpoints/
+
+# Frontend environment variables
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+frontend/.env.development
+frontend/.env.*
