@@ -15,6 +15,7 @@ import "./App.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
+
 const CLASS_COLORS = { NORMAL: "#00b894", PNEUMONIA: "#ff6b6b" };
 
 export default function App() {
