@@ -28,3 +28,8 @@ dist-ssr
 .env.development
 .env.production
 .env.*
+
+
+# Allow frontend build for deployment
+!frontend/dist/
+!frontend/dist/**
