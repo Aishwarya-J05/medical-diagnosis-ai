@@ -121,7 +121,6 @@ medical-diagnosis-ai/
 ├── outputs/                         # Generated outputs (gitignored)
 │   └── gradcam_sample.png
 │
-├── mlruns/                          # MLflow experiment tracking
 ├── Dockerfile                       # HuggingFace deployment
 ├── requirements_hf.txt              # Linux-compatible dependencies
 ├── requirements.txt                 # Full development dependencies
