@@ -4,6 +4,14 @@
 
 [![HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-Live%20Demo-yellow)](https://aishwaryanj-medical-diagnosis-ai.hf.space)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black)](https://github.com/Aishwarya-J05/medical-diagnosis-ai)
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.6-EE4C2C?logo=pytorch&logoColor=white)
+![ResNet50](https://img.shields.io/badge/Model-ResNet50-orange)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?logo=supabase&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-Deployed-FFD21E?logo=huggingface&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-green)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 ---
