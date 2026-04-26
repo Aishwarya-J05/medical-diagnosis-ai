@@ -85,46 +85,46 @@ React Frontend → Supabase (Diagnosis History)
 ```
 medical-diagnosis-ai/
 │
-├── src/
+├── src/                              # Core ML source code
+│   ├── __init__.py
 │   ├── data/
-│   │   ├── dicom_loader.py         # DICOM preprocessing pipeline
-│   │   └── dataset.py              # PyTorch Dataset + DataLoaders
-│   │
+│   │   ├── dicom_loader.py           # DICOM preprocessing pipeline
+│   │   └── dataset.py               # PyTorch Dataset + DataLoaders
 │   ├── models/
-│   │   ├── classifier.py           # ResNet50 classifier
-│   │   ├── segmentation.py         # Mask R-CNN (upgrade path)
-│   │   └── report_generator.py     # BioGPT report generation (upgrade path)
-│   │
+│   │   └── classifier.py            # ResNet50 classifier
 │   ├── training/
-│   │   ├── train_classifier.py     # Training loop with MLflow tracking
-│   │   └── train_segmentation.py   # Segmentation training (upgrade path)
-│   │
-│   ├── inference/
-│   │   └── predict.py              # Inference pipeline
-│   │
+│   │   └── train_classifier.py      # Training loop with MLflow tracking
 │   └── utils/
-│       ├── gradcam.py              # Grad-CAM explainability
-│       ├── metrics.py              # AUC-ROC, Dice score metrics
-│       └── windowing.py            # DICOM windowing utilities
+│       ├── gradcam.py               # Grad-CAM explainability
+│       ├── metrics.py               # AUC-ROC metrics
+│       └── windowing.py             # DICOM windowing utilities
 │
 ├── api/
-│   └── main.py                     # FastAPI backend
+│   └── main.py                      # FastAPI backend
 │
 ├── frontend/
 │   └── src/
-│       ├── App.jsx                 # Main React application
-│       ├── App.css                 # Glassmorphism teal theme
-│       └── supabaseClient.js       # Supabase client
+│       ├── App.jsx                  # Main React application
+│       ├── App.css                  # Glassmorphism teal theme
+│       ├── main.jsx                 # React entry point
+│       ├── index.css                # Global styles
+│       └── supabaseClient.js        # Supabase client
 │
-├── configs/
-│   └── config.yaml                 # Training configuration
+├── data/                            # Dataset (gitignored)
+│   ├── raw/                         # Raw chest X-ray images
+│   ├── processed/                   # Preprocessed tensors
+│   └── splits/                      # Train/val/test CSVs
 │
-├── tests/
-│   └── test_pipeline.py            # Pipeline tests
+├── checkpoints/                     # Model weights (LFS tracked)
+│   └── best_model.pth
 │
-├── Dockerfile                      # HuggingFace deployment
-├── requirements_hf.txt             # Linux-compatible dependencies
-├── requirements.txt                # Full development dependencies
+├── outputs/                         # Generated outputs (gitignored)
+│   └── gradcam_sample.png
+│
+├── mlruns/                          # MLflow experiment tracking
+├── Dockerfile                       # HuggingFace deployment
+├── requirements_hf.txt              # Linux-compatible dependencies
+├── requirements.txt                 # Full development dependencies
 └── README.md
 ```
 
@@ -149,9 +149,6 @@ python -m venv .venv
 
 # Activate (Windows)
 .venv\Scripts\activate
-
-# Activate (Linux/Mac)
-source .venv/bin/activate
 
 # Install PyTorch with CUDA
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
