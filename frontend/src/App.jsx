@@ -13,8 +13,7 @@ import {
 import { supabase } from "./supabaseClient";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "";
-
+const API_URL = window.location.hostname === "localhost" ? "http://localhost:8000" : "";
 
 const CLASS_COLORS = { NORMAL: "#00b894", PNEUMONIA: "#ff6b6b" };
 
