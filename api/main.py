@@ -15,7 +15,8 @@ import logging
 from pathlib import Path
 from typing import Optional
 from contextlib import asynccontextmanager
-
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import torch
 import numpy as np
 import cv2
@@ -91,6 +92,15 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan
 )
+
+# Serve React frontend
+import os
+if os.path.exists("static"):
+    app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
+
+@app.get("/")
+async def serve_frontend():
+    return FileResponse("static/index.html")
 
 # CORS — allow React frontend to call this API
 app.add_middleware(
