@@ -10,7 +10,6 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?logo=supabase&logoColor=white)
-![HuggingFace](https://img.shields.io/badge/HuggingFace-Deployed-FFD21E?logo=huggingface&logoColor=black)
 ![License](https://img.shields.io/badge/License-MIT-green)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
