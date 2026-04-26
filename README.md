@@ -1,31 +1,39 @@
-# Medical Diagnosis AI
+# 🫁 Medical Diagnosis AI
 
-A production-grade AI-powered chest X-ray diagnostic system with explainable AI, built with ResNet50, Grad-CAM, FastAPI, and React.
+> A production-grade AI-powered chest X-ray diagnostic system with explainable AI
 
-## Live Demo
-
-**[Launch App on HuggingFace](https://aishwaryanj-medical-diagnosis-ai.hf.space)**
+[![HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-Live%20Demo-yellow)](https://aishwaryanj-medical-diagnosis-ai.hf.space)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black)](https://github.com/Aishwarya-J05/medical-diagnosis-ai)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 ---
 
-## Overview
+## 📌 Overview
 
 This system assists radiologists by automatically analyzing chest X-rays, detecting pathologies, and generating explainable visual heatmaps showing which regions of the image influenced the model's decision.
 
+Built as a full-stack MLOps project — from raw DICOM preprocessing to cloud deployment.
+
 ---
 
-## Features
+## 🚀 Live Demo
 
-- **Multi-class Classification** — Detects Normal vs Pneumonia with 88.6% accuracy and 0.943 AUC-ROC
+**[Launch App → aishwaryanj-medical-diagnosis-ai.hf.space](https://aishwaryanj-medical-diagnosis-ai.hf.space)**
+
+---
+
+## ✨ Features
+
+- **Binary Classification** — Detects Normal vs Pneumonia with 88.6% accuracy and 0.943 AUC-ROC
 - **Grad-CAM Explainability** — Visual heatmaps highlighting regions that influenced the prediction
 - **Diagnosis History** — All analyses stored in Supabase with full audit trail
-- **Statistics Dashboard** — Aggregate metrics across all diagnoses with interactive charts
+- **Statistics Dashboard** — Aggregate metrics with interactive bar charts
 - **Production API** — FastAPI backend with health checks, audit logging, and inference metrics
-- **Glassmorphism UI** — Professional dark teal themed React frontend
+- **Glassmorphism UI** — Professional dark teal themed React frontend with Framer Motion animations
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -40,7 +48,7 @@ This system assists radiologists by automatically analyzing chest X-rays, detect
 
 ---
 
-## Model Performance
+## 📊 Model Performance
 
 | Metric | Value |
 |---|---|
@@ -48,80 +56,133 @@ This system assists radiologists by automatically analyzing chest X-rays, detect
 | Test AUC-ROC | 0.943 |
 | Avg Inference Time (CPU) | ~400ms |
 | Training Epochs | 6 (early stopped) |
-
-Trained on the Chest X-Ray Pneumonia dataset (5,216 train / 624 test images).
-
----
-
-## Architecture
-
-X-Ray Image → DICOM Preprocessing → ResNet50 Backbone
-↓
-Multi-label Head → Prediction + Confidence
-↓
-Grad-CAM → Heatmap Overlay
-↓
-FastAPI Backend → React Frontend
-↓
-Supabase (Diagnosis History)
+| Dataset | Chest X-Ray Pneumonia — 5,216 train / 624 test |
 
 ---
 
-## Project Structure
+## 🏗️ Architecture
 
-\```
+```
+X-Ray Image
+    ↓
+DICOM Preprocessing (windowing, CLAHE, normalization)
+    ↓
+ResNet50 Backbone (ImageNet pretrained)
+    ↓
+Classification Head → Prediction + Confidence Score
+    ↓
+Grad-CAM → Activation Heatmap Overlay
+    ↓
+FastAPI Backend (port 7860)
+    ↓
+React Frontend → Supabase (Diagnosis History)
+```
+
+---
+
+## 📁 Project Structure
+
+```
 medical-diagnosis-ai/
+│
 ├── src/
 │   ├── data/
-│   │   ├── dicom_loader.py      # DICOM preprocessing pipeline
-│   │   └── dataset.py           # PyTorch Dataset + DataLoaders
+│   │   ├── dicom_loader.py         # DICOM preprocessing pipeline
+│   │   └── dataset.py              # PyTorch Dataset + DataLoaders
+│   │
 │   ├── models/
-│   │   └── classifier.py        # ResNet50 classifier
+│   │   ├── classifier.py           # ResNet50 classifier
+│   │   ├── segmentation.py         # Mask R-CNN (upgrade path)
+│   │   └── report_generator.py     # BioGPT report generation (upgrade path)
+│   │
 │   ├── training/
-│   │   └── train_classifier.py  # Training loop with MLflow tracking
+│   │   ├── train_classifier.py     # Training loop with MLflow tracking
+│   │   └── train_segmentation.py   # Segmentation training (upgrade path)
+│   │
+│   ├── inference/
+│   │   └── predict.py              # Inference pipeline
+│   │
 │   └── utils/
-│       └── gradcam.py           # Grad-CAM explainability
+│       ├── gradcam.py              # Grad-CAM explainability
+│       ├── metrics.py              # AUC-ROC, Dice score metrics
+│       └── windowing.py            # DICOM windowing utilities
+│
 ├── api/
-│   └── main.py                  # FastAPI backend
+│   └── main.py                     # FastAPI backend
+│
 ├── frontend/
 │   └── src/
-│       ├── App.jsx              # Main React app
-│       └── supabaseClient.js    # Supabase client
-├── Dockerfile                   # HuggingFace deployment
-└── requirements_hf.txt          # Linux-compatible dependencies
-\```
+│       ├── App.jsx                 # Main React application
+│       ├── App.css                 # Glassmorphism teal theme
+│       └── supabaseClient.js       # Supabase client
+│
+├── configs/
+│   └── config.yaml                 # Training configuration
+│
+├── tests/
+│   └── test_pipeline.py            # Pipeline tests
+│
+├── Dockerfile                      # HuggingFace deployment
+├── requirements_hf.txt             # Linux-compatible dependencies
+├── requirements.txt                # Full development dependencies
+└── README.md
+```
 
 ---
 
-## Local Setup
+## ⚙️ Local Setup
 
 ### Prerequisites
+
 - Python 3.11+
 - Node.js 22+
-- NVIDIA GPU (optional, CPU works)
+- NVIDIA GPU (optional — CPU works for inference)
 
-### Backend
+### 1. Clone & Install Backend
 
 ```bash
-# Clone repo
 git clone https://github.com/Aishwarya-J05/medical-diagnosis-ai.git
 cd medical-diagnosis-ai
 
 # Create virtual environment
 python -m venv .venv
-.venv\Scripts\activate  # Windows
-source .venv/bin/activate  # Linux/Mac
 
-# Install dependencies
+# Activate (Windows)
+.venv\Scripts\activate
+
+# Activate (Linux/Mac)
+source .venv/bin/activate
+
+# Install PyTorch with CUDA
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
-pip install -r requirements_hf.txt
 
-# Run API
+# Install remaining dependencies
+pip install -r requirements.txt
+```
+
+### 2. Download Dataset
+
+```bash
+kaggle datasets download -d paultimothymooney/chest-xray-pneumonia --unzip -p data/raw
+```
+
+### 3. Train the Model
+
+```bash
+set PYTHONPATH=.
+python src/training/train_classifier.py
+```
+
+### 4. Run the API
+
+```bash
 set PYTHONPATH=.
 python api/main.py
 ```
 
-### Frontend
+API runs at **http://localhost:8000**
+
+### 5. Run the Frontend
 
 ```bash
 cd frontend
@@ -129,40 +190,89 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**
+Frontend runs at **http://localhost:5173**
 
 ---
 
-## Dataset
+## 🔌 API Endpoints
 
-- **Chest X-Ray Pneumonia** (Kaggle) — 5,216 training images, 624 test images
-- Classes: NORMAL, PNEUMONIA (bacterial + viral)
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/health` | Health check — returns model status and device |
+| GET | `/metrics` | Inference statistics — total runs, avg latency |
+| POST | `/analyze` | Main endpoint — upload X-ray, get prediction + heatmap |
+
+### Example Request
+
+```bash
+curl -X POST http://localhost:8000/analyze \
+  -F "file=@chest_xray.jpeg"
+```
+
+### Example Response
+
+```json
+{
+  "prediction": "PNEUMONIA",
+  "confidence": 0.573,
+  "probabilities": {
+    "NORMAL": 0.427,
+    "PNEUMONIA": 0.573
+  },
+  "heatmap_base64": "...",
+  "inference_time_ms": 371.2
+}
+```
 
 ---
 
-## Roadmap
+## 🗄️ Database Schema
 
-- [ ] Multi-label classification on NIH ChestX-ray14 (14 pathologies)
-- [ ] MRI brain tumor segmentation with Mask R-CNN
-- [ ] Automated clinical report generation with BioGPT
-- [ ] DICOM viewer integration with Cornerstone.js
-- [ ] LLM-as-a-judge report quality evaluation
+Supabase table: `diagnoses`
+
+| Column | Type | Description |
+|---|---|---|
+| id | uuid | Primary key |
+| created_at | timestamptz | Timestamp |
+| filename | text | Uploaded filename |
+| prediction | text | NORMAL or PNEUMONIA |
+| confidence | float4 | Model confidence 0-1 |
+| normal_prob | float4 | Normal class probability |
+| pneumonia_prob | float4 | Pneumonia class probability |
+| heatmap_base64 | text | Base64 Grad-CAM overlay |
+| inference_time_ms | float4 | Latency in milliseconds |
 
 ---
 
-## Industry Context
+## 🗺️ Roadmap
 
-Similar systems are deployed by:
-- **Siemens Healthineers** — AI-Rad Companion for chest CT analysis
-- **Mayo Clinic** — Multimodal AI foundation models for radiology
-- **The Queen's Health Systems** — AI-powered MRI, CT, and X-ray workflows
+- [x] Binary classification (Normal vs Pneumonia)
+- [x] Grad-CAM explainability heatmaps
+- [x] FastAPI backend with audit logging
+- [x] React frontend with glassmorphism design
+- [x] Supabase diagnosis history
+- [x] HuggingFace Docker deployment
 
 ---
 
-## License
+## 🏥 Industry Context
+
+Similar systems are deployed in production by:
+
+- **Siemens Healthineers** — AI-Rad Companion for chest CT analysis and Deep Resolve AI for MRI
+- **Mayo Clinic** — Multimodal AI foundation models integrating text and X-ray images
+- **The Queen's Health Systems** — AI-powered MRI, CT, PET, and X-ray diagnostic workflows
+
+---
+
+## 📄 License
 
 MIT License — free for research and educational use.
 
 ---
 
-Built by [Aishwarya Joshi](https://github.com/Aishwarya-J05)
+## 👩‍💻 Author
+
+**Aishwarya Joshi**
+- GitHub: [@Aishwarya-J05](https://github.com/Aishwarya-J05)
+- HuggingFace: [@AishwaryaNJ](https://huggingface.co/AishwaryaNJ)
